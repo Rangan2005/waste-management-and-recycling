@@ -1,4 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GREEN SPARK</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="boxicons-2.0.9/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
 
 *{
     margin: 0;
@@ -13,7 +27,7 @@ html{
     scroll-behavior: smooth;
 }
 body{
-    background-image: url(/images/homebg.jpg);
+    background-image: url(static/images/homebg.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     
@@ -157,7 +171,7 @@ body{
 .showcase .navbar-bottom .menu-right{
     display: flex;
     list-style: none;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
 }
 .showcase .navbar-bottom.sticky .menu-right li:last-child{
@@ -694,3 +708,225 @@ body{
     pointer-events: auto;
     bottom: 30px;
 }
+    </style>
+</head>
+<body id="home">
+   
+    <div class="scroll-up-btn">
+        <i class="bx bx-up-arrow-alt bx-sm"></i>
+    </div>
+    <div class="showcase">
+    --> 
+       <!-- navbar bottom section -->
+       <div class="navbar-bottom">
+            <a href="#" class="brand-left">নির্মল BHOOMI</a>
+            <ul class="menu-right">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#services">SERVICES</a></li>
+                <li><a href="#portfolio">NATURE ON THE EDGE</a></li>
+                <li><a href="#teams">ABOUT US</a></li>
+                <li><a href="#contact">CONTACT US</a></li>
+                <!--<li><a href="ai">AI TOOL</a></li>-->
+                <li><a href="register"target="_blank">LOGIN/REGISTER</a></li>
+         
+                <li><a href="#"><i class="bx bx-search bx-sm" id="search-btn"></i></a></li>
+            </ul>
+            <div class="search-form">
+                <input type="search" name="search-box" id="search-box" placeholder="search here...">
+                <label for="search-box" class="bx bx-search bx-sm"></label>
+            </div>
+       </div>
+    
+       <!-- Showcase content Section -->
+        
+       <div class="showcase-content">
+           <h1><span>TOGETHER FOR</span> <br>GREENER FUTURE</h1>
+           <p>we promote sustainable practices,reducing landfill waste, <br>and enhancing recycling efforts. Join us in creating a cleaner, greener future for our planets</p>
+           <a href="#" class="btn btn-left">EXPLORE MORE</a>
+           <a href="#" class="btn btn-right">GET IN TOUCH</a>
+         
+       </div>
+       
+
+    <!-- Services / Goal Section  -->
+
+    <section id="services" class="bg-light py-3">
+        <div class="wrapper">
+            <div class="items">
+                <div class="item">
+                    <i class="bx bxs-shield bx-lg"></i>
+                    <h3>WASTE SEGREGATION</h3>
+                    <p>INTERACTIVE AND LOCATION-SPECIFIC GUIDES FOR PROPER WASTE SEGREGATION (E.G., ORGANIC, RECYCLABLE, HAZARDOUS).</p>
+                </div>
+                <div class="item">
+                    <i class="bx bxs-map bx-lg"></i>
+                    <h3>RECYCLING CENTER LOCATOR</h3>
+                    <p>A MAP THAT SHOWS NEARBY RECYCLING CENTERS, PICK-UP POINTS, AND E-WASTE DISPOSAL STATIONS.</p>
+                </div>
+                <div class="item">
+                    <i class="bx bxs-pencil bx-lg"></i>
+                    <h3>AI WASTE RECOGNITION TOOL</h3>
+                    <p>UPLOAD IMAGES OF WASTE TO GET INSTANT RECOMMENDATIONS ON WHETHER ITEMS CAN BE RECYCLED OR COMPOSTED.</p>
+                </div>
+                <div class="item">
+                    <i class="bx bxs-bell-ring bx-lg"></i>
+                    <h3>WASTE COLLECTION ALERTS</h3>
+                    <p>USERS CAN CHECK THEIR LOCAL WASTE COLLECTION SCHEDULE. - PUSH NOTIFICATIONS OR EMAIL ALERTS FOR UPCOMING COLLECTION DAYS.</p>
+                </div>
+            </div>
+            <div id="goal" class="goal">
+                <div class="goal-img">
+                    <img src="static/images/2nd_pg_img.jpg">
+                </div>
+                <div class="goal-text">
+                    <a href="#">Our Priorities</a>
+                    <h2>Nature is a model for waste management because it recycles resources and <br>has no waste. Here are some ways that nature can help with waste management:</h2>
+                    <div class="contents">
+                        <div class="content p-4">
+                            <i class="bx bx-check bx-sm"></i>
+                        </div>
+                        <div class="content p-4">
+                            <h3>Reducing waste- </h3>
+                            <p>Using resources wisely and reducing waste <br>can protect the environment and save on disposal costs.</p>
+                        </div>
+                    </div>
+                    <div class="contents">
+                        <div class="content p-4">
+                            <i class="bx bx-check bx-sm"></i>
+                        </div>
+                        <div class="content p-4">
+                            <h3>Conserving nature resources-</h3>
+                            <p>Recycling reduces the need to extract <br> resources and the potential for contamination.</p>
+                        </div>
+                    </div>
+                    <div class="contents">
+                        <div class="content p-4">
+                            <i class="bx bx-check bx-sm"></i>
+                        </div>
+                        <div class="content p-4">
+                            <h3>Protecting natural beauty-</h3>
+                            <p>Waste management and recycling can help <br> conserve the planet's natural beauty.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio py-3">
+        <h3 class="text-center">GREEN SPARK</h3>
+        <h2 class="text-center">NATURE ON THE EDGE<span class="text-secondary"></span> </h2>
+        <p class="text-center">"We Guide to you for a Cleaner Tomorrow." <br> "Recycle Right for Live Bright."</p>
+        <div class="owl-carousel">
+            <div class="item"><img src="static/images/article1.jpg"></div>
+            <div class="item"><img src="static/images/article2.jpg"></div>
+            <div class="item"><img src="static/images/article3.jpg"></div>
+            <div class="item"><img src="static/images/article4.jpg"></div>
+            <div class="item"><img src="static/images/article5.jpg"></div>
+            <div class="item"><img src="static/images/article6.jpg"></div>
+            <div class="item"><img src="static/images/article7.jpg"></div>
+            <div class="item"><img src="static/images/article8.jpg"></div>
+            <div class="item"><img src="static/images/article9.jpg"></div>
+            <div class="item"><img src="static/images/article10.jpg"></div>
+            <div class="item"><img src="static/images/article11.jpg"></div>
+            <div class="item"><img src="static/images/article12.jpg"></div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="teams" class="teams bg-light py-3">
+        <h3 class="text-center">We are there for you</h3>
+        <h2 class="text-center">Meet Our <span class="text-secondary">GREEN FIGHTERS</span></h2>
+        <p class="text-center">We help you  to see the world differently<br>and guide you to maintain the balance of nature </p>
+        <div class="wrapper">
+            <div class="card-items">
+                <div class="card">
+                    <div class="card-header">
+                        <img src="static/images/gourab1.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h3>GOURAB SAMANTA</h3>
+                        <h4>FRONTEND DEVELOPER</h4>
+                        <ul>
+                            <li><a href="https://github.com/Gourab69420"target="_blank"><i class="bx bxl-github bx-xs"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/gourab-samanta-79a5b2296?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"target="_blank"><i class="bx bxl-linkedin bx-xs"></i></a></li>
+                            <li><a href="https://www.facebook.com/share/B7rqk1Yan7AP1snM/"target="_blank"><i class="bx bxl-facebook bx-xs"></i></a></li>
+                            <li><a href="https://www.instagram.com/gourab_2005_/profilecard/?igsh=ZzJ0ZjF0dnp0MHh6"target="_blank"><i class="bx bxl-instagram-alt bx-xs"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <img src="static/images/SUBROJOTIDADU.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h3>SUBHRAJYOTI BASU</h3>
+                        <h4>BACKEND AND ML DEVELOPER</h4>
+                        <ul>
+                            <li><a href="https://github.com/Rangan2005"target="_blank"><i class="bx bxl-github bx-xs"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/subhrajyoti-basu-47451b311?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"target="_blank"><i class="bx bxl-linkedin bx-xs"></i></a></li>
+                            <li><a href="#"><i class="bx bxl-facebook bx-xs"></i></a></li>
+                            <li><a href="#"><i class="bx bxl-instagram-alt bx-xs"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <img src="static/images/SUMITKAKA.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h3>SUMIT SILL</h3>
+                        <h4>UI-UX DESIGNER </h4>
+                        <ul>
+                            <li><a href="https://github.com/Sumitsill"target="_blank"><i class="bx bxl-github bx-xs"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/sumit-sill-3484b7332?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"target="_blank"><i class="bx bxl-linkedin bx-xs"></i></a></li>
+                            <li><a href="#"><i class="bx bxl-facebook bx-xs"></i></a></li>
+                            <li><a href="https://www.instagram.com/sumit_sill?igsh=MXBqbHFqenoxM3A2dg=="target="_blank"><i class="bx bxl-instagram-alt bx-xs"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <img src="static/images/shopnonil.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h3>SWAPNANIL GHOSH</h3>
+                        <h4>APP DEVELOPER</h4>
+                        <ul>
+                            <li><a href="https://github.com/The5wapnanil"target="_blank"><i class="bx bxl-github bx-xs"></i></a></li>
+                            <li><a href="https://www.linkedin.com/in/swapnanil-ghosh-289b46327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"target="_blank"><i class="bx bxl-linkedin bx-xs"></i></a></li>
+                            <li><a href="#"target="_blank"><i class="bx bxl-facebook bx-xs"></i></a></li>
+                            <li><a href="https://www.instagram.com/the._dream._blue?igsh=OGQ5ZDc2ODk2ZA=="target="_blank"><i class="bx bxl-instagram-alt bx-xs"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact bg-secondary py-3">
+        <h2 class="text-center">Contact TO নির্মল BHOOMI</h2>
+        <p class="text-center">A ADVANCE SOFTWARE FOR<br>WASTE MANAGEMENT AND RECYCLING.</p>
+        <div class="wrapper">
+            <form class="text-center" id="contactForm" method="POST">
+                {% csrf_token %}
+                <input type="text" name="name" id="name" placeholder="Enter Name">
+                <input type="text" name="problem" id="problem" placeholder="Share your problem with us">
+                <input type="email" name="email" id="email" placeholder="Enter Email Address">
+                <button class="button">Submit</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer-bottom py-3 text-center">
+        <p>Copyright &copy; 2024 by GREEN SPARK. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="static/js/app.js"></script>
+</body>
+</html>

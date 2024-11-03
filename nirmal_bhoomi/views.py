@@ -1,9 +1,7 @@
-from rest_framework import generics, status
+from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
-from nirmal_bhoomi.serializers import UserSerializer, RegisterSerializer
 import torch
 from torch import nn
 from torchvision import transforms, models
@@ -14,92 +12,10 @@ from django.conf import settings
 from django.contrib import messages
 import os
 from django.shortcuts import render, redirect
-from ultralytics import YOLO  # Import YOLO model for object detection
+from ultralytics import YOLO
+from django.http import JsonResponse
+from .forms import ContactForm 
 
-# Register API
-'''class RegisterAPI(generics.GenericAPIView):
-    serializer_class = RegisterSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        
-        # Ensure that the Token object is created properly
-        token, _ = Token.objects.get_or_create(user=user)
-        
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": token.key
-        })'''
-
-# Load the garbage classification model
-model_path = os.path.join(settings.BASE_DIR, 'garbage_classification_model2.pth')
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-# Load the classification model architecture and weights
-classification_model = models.mobilenet_v2()
-num_ftrs = classification_model.classifier[1].in_features
-classification_model.classifier[1] = nn.Linear(num_ftrs, 2)  # Binary classification
-classification_model.load_state_dict(torch.load(model_path, map_location=device))
-classification_model.to(device)
-classification_model.eval()
-
-# Load YOLO object detection model
-yolo_model = YOLO("yolov8n.pt")  # or use a custom-trained YOLO model
-
-# Define transformations (same as training)
-transform = transforms.Compose([
-    transforms.Resize((64, 64)),
-    transforms.ToTensor(),
-    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-])
-
-# Define the class mapping
-class_map = {0: "recyclable", 1: "non-recyclable"}
-
-class GarbageClassificationView(APIView):
-    parser_classes = [MultiPartParser, FormParser]
-
-    def post(self, request, *args, **kwargs):
-        file_obj = request.FILES.get('image', None)
-        if not file_obj:
-            return Response({"error": "No image provided"}, status=status.HTTP_400_BAD_REQUEST)
-
-        # Open the image
-        image = Image.open(file_obj).convert("RGB")
-
-        # Run object detection
-        results = yolo_model(image)
-        detected_objects = []
-
-        for result in results[0].boxes:
-            # Extract bounding box coordinates
-            x1, y1, x2, y2 = map(int, result.xyxy[0])
-            
-            # Crop the detected object from the image
-            cropped_image = image.crop((x1, y1, x2, y2))
-            
-            # Transform the cropped image
-            transformed_image = transform(cropped_image).unsqueeze(0)  # Add batch dimension
-
-            # Run inference on the cropped image using the classification model
-            with torch.no_grad():
-                transformed_image = transformed_image.to(device)
-                outputs = classification_model(transformed_image)
-                _, predicted = torch.max(outputs, 1)
-                label = class_map[predicted.item()]
-                
-            # Append result with bounding box and classification label
-            detected_objects.append({
-                "bounding_box": [x1, y1, x2, y2],
-                "classification": label
-            })
-
-        # Return the results for each detected object
-        return Response({"detections": detected_objects}, status=status.HTTP_200_OK)
-
-# Render functions for frontend pages
 def ai_intro(request):
     return render(request, 'ai-intro.html')
 
@@ -109,53 +25,126 @@ def ai(request):
 def index(request):
     return render(request, 'index.html')
 
+def index1(request):
+    return render(request, 'index_aft_log.html')
+
 def login(request):
-    if request.method == "POST":  # Corrected 'post' to 'POST'
+    if request.method == "POST": 
         username = request.POST['username']
         pass1 = request.POST['pass1']
 
-        # Authenticate the user
         user = authenticate(request, username=username, password=pass1)
 
         if user is not None:
             auth_login(request, user)
-            #fname = user.first_name
             return render(request, "index_aft_log.html")
         else:
             messages.error(request, "Invalid Credentials")
-            return redirect('login')  # Redirect to the sign-in page on failure
+            return redirect('login') 
 
     return render(request, 'LOGIN.html')
 
 def register(request):
-    if request.method == "POST":  # Corrected 'post' to 'POST'
+    if request.method == "POST":
         username = request.POST['username']
-        # fname = request.POST['fname']
-        # lname = request.POST['lname']
         email = request.POST['email']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
 
-        # Check if passwords match before saving user
         if pass1 != pass2:
             messages.error(request, "Passwords do not match")
             return redirect('register')
-        # Check if the username already exists
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken. Please choose a different one.")
             return redirect('register')
-        
-        # Check if the email already exists (optional)
         if User.objects.filter(email=email).exists():
             messages.error(request, "An account with this email already exists.")
             return redirect('register')
 
-        # Create user
         myuser = User.objects.create_user(username, email, pass1)
-        # myuser.first_name = fname
-        # myuser.last_name = lname
         myuser.save()
 
         messages.success(request, "Your Account has been successfully created")
-        return redirect('login')  # Redirect to the sign-in page
+        return redirect('login') 
     return render(request, 'register.html')
+
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model_path = os.path.join(settings.BASE_DIR, 'garbage_classification_model2.pth')
+try:
+    classification_model = models.mobilenet_v2()
+    num_ftrs = classification_model.classifier[1].in_features
+    classification_model.classifier[1] = nn.Linear(num_ftrs, 2)  # Binary classification
+    classification_model.load_state_dict(torch.load(model_path, map_location=device))
+    classification_model.to(device)
+    classification_model.eval()
+except Exception as e:
+    print(f"Error loading classification model: {e}")
+    classification_model = None
+
+try:
+    yolo_model = YOLO("yolov8n.pt")  # Use custom path if applicable
+except Exception as e:
+    print(f"Error loading YOLO model: {e}")
+    yolo_model = None
+
+transform = transforms.Compose([
+    transforms.Resize((64, 64)),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+class_map = {0: "recyclable", 1: "non-recyclable"}
+
+class GarbageClassificationView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, *args, **kwargs):
+        if classification_model is None or yolo_model is None:
+            return Response({"error": "Model loading failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        file_obj = request.FILES.get('image')
+        if not file_obj:
+            return Response({"error": "No image provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            image = Image.open(file_obj).convert("RGB")
+        except Exception as e:
+            print(f"Error processing image: {e}")
+            return Response({"error": "Invalid image format"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            results = yolo_model(image)
+            detected_objects = []
+
+            for result in results[0].boxes:
+                try:
+                    x1, y1, x2, y2 = map(int, result.xyxy[0])
+                    cropped_image = image.crop((x1, y1, x2, y2))
+                    transformed_image = transform(cropped_image).unsqueeze(0).to(device)
+                    with torch.no_grad():
+                        outputs = classification_model(transformed_image)
+                        _, predicted = torch.max(outputs, 1)
+                        label = class_map[predicted.item()]
+                    detected_objects.append({
+                        "bounding_box": [x1, y1, x2, y2],
+                        "classification": label
+                    })
+                except Exception as e:
+                    print(f"Error classifying object: {e}")
+                    return Response({"error": "Classification error for detected object"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+            return Response({"detections": detected_objects}, status=status.HTTP_200_OK)
+        
+        except Exception as e:
+            print(f"Error in detection process: {e}")
+            return Response({"error": "Detection or classification process failed"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+def submit_contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"message": "Submission successful!"}, status=200)
+        else:
+            return JsonResponse({"errors": form.errors}, status=400)
+    return JsonResponse({"error": "Invalid request method."}, status=405)

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+.bubble-btn{
+		width: 100%;
+		height: 45px;
+		margin-top: 10px;
+		background: #1e1f39;
+		border: none;
+		outline: none;
+		border-radius: 40px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+		cursor: pointer;
+		font-size: 16px;
+		color: #9a9393;
+		font-weight: 600;
+		transition-duration: 0.4s;
+        cursor: pointer;
+		border: 2px solid #010101;
+ }
+
+  .bubble-btn:hover {
+	animation: bubble 0.4s ease-out;
+	background-color: #04AA6D;
+    color: white;
+  }
+  
+  @keyframes bubble {
+	0% {
+	  transform: scale(1);
+	}
+	50% {
+	  transform: scale(1.2);
+	}
+	100% {
+	  transform: scale(1);
+	}
+  }
+
+:root {
+	--clr: #282e41;
+}
+
+body {
+	display: block;
+	background: var(--clr);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.paste-area{
+	display: block;
+}
+.container {
+	padding: 28px;
+	border-radius: 20px;
+	background: #fff;
+}
+.drop-area {
+	background: #312c4f;
+	max-width: 300px;
+	width: 100%;
+	padding: 20px;
+	border-radius: 10px;
+	text-align: center;
+	color: #999;
+	cursor: pointer;
+	border: 2px dashed #ccc;
+	position: relative;
+	
+	overflow: hidden;
+}
+.icon {
+	font-size: 100px;
+	margin-bottom: 16px;
+}
+h3 {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 16px;
+	pointer-events: none;
+}
+p {
+	font-size: 14px;
+}
+p span {
+	font-weight: 600;
+}
+.thumbnail, .img-name {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+.thumbnail {
+	object-fit: cover;
+	z-index: 100;
+}
+.img-name {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #fff;
+	font-weight: 500;
+	padding: 16px;
+	background: rgba(0, 0, 0, .5);
+	z-index: 200;
+	opacity: 0;
+	transition: all .3s ease;
+}
+.drop-area:hover .img-name {
+	opacity: 1;
+}
+	</style>
+	<title>Garbage Classification</title>
+</head>
+<body>
+<div class="paste-area">
+	<div class="container">
+		<div class="drop-area" onclick="document.getElementById('input-file').click();">
+			<i class='bx bxs-cloud-upload icon'></i>
+			<h3>Drag and drop or click here to select image</h3>
+			<p>Image size must be less than <span>8MB</span></p>
+			<input type="file" accept="image/*" id="input-file" hidden>
+		</div>
+		<div class="bt">
+			<button type="submit" class="bubble-btn" onclick="classifyImage()">Classify</button>
+		</div>
+		<div id="result"></div> <!-- Area to display the classification result -->
+	</div>
+</div>
+<script src="static/js/script.js"></script>
+</body>
+</html>
