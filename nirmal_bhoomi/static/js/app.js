@@ -54,6 +54,7 @@ $(document).ready(function(){
             }
         }
     });
+<<<<<<< HEAD
 });
 
 
@@ -114,3 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+=======
+});
+>>>>>>> edd1b94cd0bc1b6dbd76581cfb87a6ec43e96d1a
