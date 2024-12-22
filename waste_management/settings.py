@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-b@0nw-4w(g1#b91xu75zm@_&546@-rny9m9c7^^bd%@whq7mno
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['waste-management-and-recycling.onrender.com']
 
 
 # Application definition
